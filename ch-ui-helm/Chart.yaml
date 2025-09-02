@@ -1,0 +1,17 @@
+apiVersion: v2
+name: ch-ui
+description: A Helm chart for CH-UI - ClickHouse Web UI
+type: application
+version: 0.1.0
+appVersion: "latest"
+keywords:
+  - clickhouse
+  - database
+  - ui
+  - management
+home: https://github.com/caioricciuti/ch-ui
+sources:
+  - https://github.com/caioricciuti/ch-ui
+maintainers:
+  - name: ch-ui
+    url: https://github.com/caioricciuti/ch-ui
