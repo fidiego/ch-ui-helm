@@ -7,15 +7,3 @@ metadata:
 data:
   VITE_CLICKHOUSE_URL: {{ .Values.config.clickhouse.url | quote }}
   VITE_CLICKHOUSE_USER: {{ .Values.config.clickhouse.user | quote }}
-  {{- if .Values.config.clickhouse.useAdvanced }}
-  VITE_CLICKHOUSE_USE_ADVANCED: "true"
-  {{- end }}
-  {{- if .Values.config.app.basePath }}
-  VITE_BASE_PATH: {{ .Values.config.app.basePath | quote }}
-  {{- end }}
-  {{- if .Values.config.app.requestTimeout }}
-  VITE_REQUEST_TIMEOUT: {{ .Values.config.app.requestTimeout | quote }}
-  {{- end }}
-  {{- if .Values.config.app.distributed }}
-  VITE_DISTRIBUTED: "true"
-  {{- end }}

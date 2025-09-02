@@ -45,12 +45,36 @@ spec:
             {{- toYaml . | nindent 12 }}
             {{- end }}
           env:
-            {{- if .Values.config.clickhouse.password }}
+            {{- if .Values.config.clickhouse.existingSecret }}
+            # When using existing secret, map all ClickHouse config from it
+            - name: VITE_CLICKHOUSE_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.config.clickhouse.existingSecret }}
+                  key: {{ .Values.config.clickhouse.existingSecretKeys.password }}
+            {{- else if .Values.config.clickhouse.password }}
+            # When using inline password (not recommended for production)
             - name: VITE_CLICKHOUSE_PASS
               valueFrom:
                 secretKeyRef:
                   name: {{ include "ch-ui.fullname" . }}
                   key: clickhouse-password
+            {{- end }}
+            {{- if .Values.config.clickhouse.useAdvanced }}
+            - name: VITE_CLICKHOUSE_USE_ADVANCED
+              value: "true"
+            {{- end }}
+            {{- if .Values.config.app.basePath }}
+            - name: VITE_BASE_PATH
+              value: {{ .Values.config.app.basePath | quote }}
+            {{- end }}
+            {{- if .Values.config.app.requestTimeout }}
+            - name: VITE_REQUEST_TIMEOUT
+              value: {{ .Values.config.app.requestTimeout | quote }}
+            {{- end }}
+            {{- if .Values.config.app.distributed }}
+            - name: VITE_DISTRIBUTED
+              value: "true"
             {{- end }}
             {{- with .Values.env }}
             {{- toYaml . | nindent 12 }}

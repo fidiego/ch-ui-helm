@@ -60,10 +60,17 @@ affinity: {}
 
 config:
   clickhouse:
+    # Option 1: Provide values directly
     url: "http://clickhouse:8123"
     user: "default"
     password: ""
     useAdvanced: false
+    # Option 2: Use an existing secret
+    # If existingSecret is set, it will override the above values
+    existingSecret: ""
+    # Keys in the existing secret (defaults shown)
+    existingSecretKeys:
+      password: "VITE_CLICKHOUSE_PASS"
   app:
     basePath: ""
     requestTimeout: 30000
